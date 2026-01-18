@@ -1,0 +1,3 @@
+nebulatk
+pillow
+opencv-python
