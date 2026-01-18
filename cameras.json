@@ -3,6 +3,14 @@
     {
       "ip": "192.168.0.126",
       "type": "ptzoptics"
+    },
+    {
+      "ip": "192.168.0.136",
+      "type": "ptzoptics"
+    },
+    {
+      "ip": "192.168.0.25",
+      "type": "ptzoptics"
     }
   ]
 }

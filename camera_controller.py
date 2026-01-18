@@ -259,6 +259,7 @@ if __name__ == "__main__":
         command=lambda: ptz_cam.zoom("wide"),
         command_off=lambda: ptz_cam.zoom_stop(),
     ).place(75, 210)
+    zoom_lbl = ntk.Label(window, text="Zoom", height=15,width=50).place(50,260)
 
     focus_in_btn = ntk.Button(
         window,
@@ -276,6 +277,7 @@ if __name__ == "__main__":
         command=lambda: ptz_cam.focus("near"),
         command_off=lambda: ptz_cam.focus_stop(),
     ).place(225, 210)
+    focus_lbl = ntk.Label(window, text="Focus", height=15,width=50).place(200,260)
 
     names = [
         "Piano",
@@ -346,7 +348,7 @@ if __name__ == "__main__":
             frame = cap.current_frame
             frame_time2 = time()
             # sleep(1/30)
-            sleep(1 / 24)
+            sleep(1 / 30)
             if frame is not None:
                 # cv2.imshow('frame',frame)
                 im = Image.fromarray(frame, "RGB")
