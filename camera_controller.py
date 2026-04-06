@@ -273,7 +273,23 @@ if __name__ == "__main__":
         slot = presets[str(slot_index)]
         button.text = slot["name"]
         image_path = _stored_to_abs_path(slot.get("image_path", ""))
-        button.image = image_path if image_path and os.path.exists(image_path) else None
+        if image_path and os.path.exists(image_path):
+            try:
+                base_image = ntk.image_manager.Image(image_path, _object=button)
+                button.image = base_image
+                button.hover_image = ntk.image_manager.Image(base_image).darken(18)
+                button.active_image = ntk.image_manager.Image(base_image).darken(36)
+                button.active_hover_image = ntk.image_manager.Image(base_image).darken(48)
+            except Exception:
+                button.image = image_path
+                button.hover_image = None
+                button.active_image = None
+                button.active_hover_image = None
+        else:
+            button.image = None
+            button.hover_image = None
+            button.active_image = None
+            button.active_hover_image = None
         button.update()
 
     def _refresh_preset_buttons():
@@ -573,6 +589,11 @@ if __name__ == "__main__":
         else:
             ptz_cam.preset_recall(index)
 
+    preset_base_fill = "#6e6e6e"
+    preset_hover_fill = ntk.colors_manager.Color(preset_base_fill).darken(18).color
+    preset_active_fill = ntk.colors_manager.Color(preset_base_fill).darken(36).color
+    preset_active_hover_fill = ntk.colors_manager.Color(preset_base_fill).darken(48).color
+
     for i in range(9):
         y = 250 + 50 * ((i + 3) // 3)
         x_offset = 2 if (i + 1) % 3 == 0 else (i + 1) % 3 - 1
@@ -582,6 +603,10 @@ if __name__ == "__main__":
             "font": "default",
             "height": 50,
             "width": 100,
+            "fill": preset_base_fill,
+            "hover_fill": preset_hover_fill,
+            "active_fill": preset_active_fill,
+            "active_hover_fill": preset_active_hover_fill,
             "command": lambda i=i: set_recall(i + 1),
         }
         preset_button = ntk.Button(
